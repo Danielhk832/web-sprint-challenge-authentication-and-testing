@@ -25,7 +25,8 @@ const checkLoginCredentials = async (req, res, next) => {
       return next({ status: 401, message: "username and password required" });
     }
 
-    const user = await Users.findBy(req.body.username);
+    const [user] = await Users.findBy({ username });
+    console.log(user);
     if (!user) {
       next({ status: 402, message: "invalid credentials" });
     }
