@@ -6,7 +6,7 @@ const validateCredentials = async (req, res, next) => {
     if (!username || !password) {
       return next({ status: 401, message: "username and password required" });
     }
-    const [user] = await Users.findBy({ username });
+    const user = await Users.findBy(username);
     if (user) {
       next({ status: 401, message: "username taken" });
     } else {
@@ -25,7 +25,7 @@ const checkLoginCredentials = async (req, res, next) => {
       return next({ status: 401, message: "username and password required" });
     }
 
-    const [user] = await Users.findBy({ username });
+    const user = await Users.findBy(username);
     console.log(user);
     if (!user) {
       next({ status: 402, message: "invalid credentials" });

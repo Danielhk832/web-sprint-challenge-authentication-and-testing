@@ -10,8 +10,7 @@ const { tokenBuilder } = require("./tokenBuilder");
 router.post("/register", validateCredentials, async (req, res, next) => {
   try {
     let user = req.body;
-    const rounds = process.env.BCRYPT_ROUNDS || 8;
-    const hash = bcrypt.hashSync(user.password, rounds);
+    const hash = bcrypt.hashSync(user.password, 8);
 
     user.password = hash;
     const newUser = await Users.register(user);
@@ -52,7 +51,7 @@ router.post("/login", checkLoginCredentials, (req, res, next) => {
     const token = tokenBuilder(req.user);
     res.json({ message: `welcome, ${req.user.username}`, token });
   } else {
-    next({ status: 401, message: "Invalid credentials" });
+    next({ status: 401, message: "invalid credentials" });
   }
   /*
     IMPLEMENT
