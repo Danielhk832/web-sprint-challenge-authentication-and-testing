@@ -15,10 +15,15 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
-  if (!token) {
+  const formattedToken = token ? token.replace("Bearer", "").trim() : null;
+  if (!formattedToken) {
     return next({ status: 401, message: "token required" });
   }
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+
+  // if (!token) {
+  //   return next({ status: 401, message: "token required" });
+  // }
+  jwt.verify(formattedToken, JWT_SECRET, (err, decoded) => {
     if (err) {
       return next({ status: 401, message: "token invalid" });
     }
