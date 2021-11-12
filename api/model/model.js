@@ -6,7 +6,7 @@ async function register(user) {
 }
 
 function findBy(filter) {
-  return db("users").where(filter).first();
+  return db("users").where(filter);
 }
 
 module.exports = {
