@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const Users = require("../model/model");
+const { validateCredentials } = require("./auth-middleware");
 const { tokenBuilder } = require("./tokenBuilder");
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", validateCredentials, async (req, res, next) => {
   try {
     let user = req.body;
     const rounds = process.env.BCRYPT_ROUNDS || 8;

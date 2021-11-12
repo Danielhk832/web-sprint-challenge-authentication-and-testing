@@ -34,8 +34,8 @@ test("sanity", () => {
 describe("[POST] Register", () => {
   test("Register a new User", async () => {
     await request(server).post("/api/auth/register").send(user1);
-    const user = await db("users").where("username", "KingCoder").first();
-    expect(user).toMatchObject({ username: "KingCoder" });
+    const user = await db("users").where("username", "daniel").first();
+    expect(user).toMatchObject({ username: "daniel" });
   });
   test("Register responds with 'username taken'", async () => {
     await request(server).post("/api/auth/register").send(user1);
